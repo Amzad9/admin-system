@@ -1,16 +1,16 @@
 {
   "users": [
     {
-      "id": "ad53",
-      "username": "amzadkhan",
-      "email": "amzad.fineart@gmail.com",
-      "role": "admin"
-    },
-    {
-      "username": "Suhail Saifi",
+      "username": "Suhail Saifi34",
       "email": "Suhail@gmail.com",
       "role": "user",
       "id": "b171"
+    },
+    {
+      "id": "aa8e",
+      "username": "admin_user12",
+      "email": "amzad.fineart@gmail.com",
+      "role": "admin"
     }
   ]
 }

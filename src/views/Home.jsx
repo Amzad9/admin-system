@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useId } from 'react'
-import { Outlet, Link } from 'react-router-dom'
-import { toast } from 'react-toastify';
-import axios from 'axios';
 import Drawer from '../components/Drawer';
 import Loader from '../components/Loader';
 import TextInput from '../components/TextInput';
@@ -9,27 +6,22 @@ import { deleteUser, fetchUsers, saveUser } from '../store/action/user';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectInput from '../components/SelectInput';
 import DataTableList from '../components/DataTableList';
+import { setFormData } from '../store/slice/userReducer';
 
 const Home = () => {
     const id = useId();
-    const [errors, setErrors] = useState({});
-    const [users, setUsers] = useState([]);
     const [drawerId, setDrawerId] = useState("drawer-4");
     const [update, setUpdate] = useState(false)
-    const [formData, setFormData] = useState({
-        id: id,
-        username: "",
-        email: "",
-        role: "",
-    })
     const dispatch = useDispatch();
     const userList = useSelector((state) => state.user.users)
     const isLoading = useSelector((state) => state.user.isLoading)
+    let formData = useSelector((state) => state.user.formData);
+
     console.log(isLoading)
     const onChangehandlers = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
+        dispatch(setFormData({
+            ...formData,
             [name]: value
         }));
     };
@@ -44,13 +36,13 @@ const Home = () => {
         const userToUpdate = userList.find(user => user.id === userId.id);
         if (userToUpdate) {
             setUpdate(true) // Open the drawer with user data
-            setFormData({
+            dispatch(setFormData({
                 ...formData,
                 id: userToUpdate.id,
                 username: userToUpdate.username,
                 email: userToUpdate.email,
                 role: userToUpdate.role
-            });
+            }));
         } else {
             console.error('User not found');
         }
