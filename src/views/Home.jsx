@@ -12,6 +12,7 @@ import Loader from '../components/Loader';
 import TextInput from '../components/TextInput';
 import { deleteUser, fetchUsers, saveUser } from '../store/action/user';
 import { useDispatch, useSelector } from 'react-redux';
+import SelectInput from '../components/SelectInput';
 
 const Home = () => {
     const id = useId();
@@ -83,13 +84,13 @@ const Home = () => {
             </div>
             <Drawer id={drawerId}>
                 <form className="px-0 pe-2 pt-6" onSubmit={onSubmitHandler}>
-                   <TextInput
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    placeholder="Username"
-                    onChange={onChangehandlers}
-                    required
+                    <TextInput
+                        type="text"
+                        name="username"
+                        value={formData.username}
+                        placeholder="Username"
+                        onChange={onChangehandlers}
+                        required
                     />
                     <TextInput
                         type="email"
@@ -99,18 +100,13 @@ const Home = () => {
                         onChange={onChangehandlers}
                         required
                     />
-                    
-                    {errors.email && <p>{errors.email}</p>}
-                    <select
-                        className="select select-bordered w-full max-w-xs mt-4"
-                        name='role'
+
+                    <SelectInput
+                        name="role"
                         value={formData.role}
                         onChange={onChangehandlers}
-                    >
-                        <option disabled selected>Normal</option>
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
+                    />
+
                     <button type='submit' className="btn btn-primary mt-5 w-full">{update ? "Update" : "Submit"}</button>
                 </form>
             </Drawer>
