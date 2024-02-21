@@ -9,7 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { GrFormView } from "react-icons/gr";
 import Drawer from '../components/Drawer';
 import Loader from '../components/Loader';
-useDispatch
+import TextInput from '../components/TextInput';
 import { deleteUser, fetchUsers, saveUser } from '../store/action/user';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -83,25 +83,23 @@ const Home = () => {
             </div>
             <Drawer id={drawerId}>
                 <form className="px-0 pe-2 pt-6" onSubmit={onSubmitHandler}>
-                    <input
-                        type="text"
-                        name='username'
-                        value={formData.username}
-                        placeholder="username"
-                        className="input input-bordered w-full"
-                        required
-                        onChange={onChangehandlers}
+                   <TextInput
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    placeholder="Username"
+                    onChange={onChangehandlers}
+                    required
                     />
-                    {errors.username && <p>{errors.username}</p>}
-                    <input
+                    <TextInput
                         type="email"
-                        name='email'
+                        name="email"
                         value={formData.email}
-                        placeholder="email"
-                        className="input input-bordered w-full mt-4"
-                        required
+                        placeholder="Username"
                         onChange={onChangehandlers}
+                        required
                     />
+                    
                     {errors.email && <p>{errors.email}</p>}
                     <select
                         className="select select-bordered w-full max-w-xs mt-4"
