@@ -20,14 +20,17 @@ export const fetchUsers = () => {
 };
 export const deleteUser = (userId) => {
     return async (dispatch) => {
+      
         if (window.confirm("Are you sure you want to delete this user?")) {
+          console.log({userId})
+
         try {
             await axios.delete(`${import.meta.env.VITE_URL}/users/${userId}`);
             dispatch(fetchUsers()); // Refresh the user list after deletion
             toast('User deleted successfully');
         } catch (error) {
             console.error('Error deleting user:', error);
-            toast.error('Failed to delete user', error);
+            toast.error('Failed to delete user', error.message);
             throw error;
         }
     }

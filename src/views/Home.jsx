@@ -2,17 +2,13 @@ import React, { useState, useEffect, useId } from 'react'
 import { Outlet, Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { MdOutlineDeleteOutline } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
-import { GrFormView } from "react-icons/gr";
 import Drawer from '../components/Drawer';
 import Loader from '../components/Loader';
 import TextInput from '../components/TextInput';
 import { deleteUser, fetchUsers, saveUser } from '../store/action/user';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectInput from '../components/SelectInput';
+import DataTableList from '../components/DataTableList';
 
 const Home = () => {
     const id = useId();
@@ -44,7 +40,7 @@ const Home = () => {
 
     const updateUser = (userId) => {
         setDrawerId(userId);
-        console.log(userList)
+        console.log({userId})
         const userToUpdate = userList.find(user => user.id === userId.id);
         if (userToUpdate) {
             setUpdate(true) // Open the drawer with user data
@@ -63,15 +59,6 @@ const Home = () => {
         e.preventDefault();
         dispatch(saveUser(formData, update));
         setUpdate(false)
-    };
-    const ratingBodyTemplate = (user) => {
-        return (
-            <>
-                <Link to={`${user.id}`} className='btn btn-circle me-2'><GrFormView size="18" /></Link>
-                <Link className='btn btn-circle me-2' onClick={() => dispatch(deleteUser(user.id))}><MdOutlineDeleteOutline size="16" /></Link>
-                <label htmlFor={drawerId}><span className='btn btn-circle' onClick={() => updateUser(user)}><FaRegEdit /></span></label>
-            </>
-        )
     };
     return (
         <div>
@@ -110,12 +97,7 @@ const Home = () => {
                     <button type='submit' className="btn btn-primary mt-5 w-full">{update ? "Update" : "Submit"}</button>
                 </form>
             </Drawer>
-            <DataTable value={userList} size='small' paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
-                <Column field="username" header="Name" style={{ width: '25%' }}></Column>
-                <Column field="email" header="Email" style={{ width: '25%' }}></Column>
-                <Column field="role" header="Role" style={{ width: '25%' }}></Column>
-                <Column field="" header="Action" body={ratingBodyTemplate}></Column>
-            </DataTable>
+            <DataTableList drawerId={drawerId} data={userList} deleteUser={(id) => dispatch(deleteUser(id))}  updateUser={(e) => updateUser(e)} />
         </div>
     )
 }

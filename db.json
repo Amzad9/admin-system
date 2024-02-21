@@ -1,10 +1,16 @@
 {
   "users": [
     {
-      "username": "jhons",
-      "email": "jhon@gmail.com",
-      "role": "admin",
-      "id": "cb09"
+      "id": "ad53",
+      "username": "amzadkhan",
+      "email": "amzad.fineart@gmail.com",
+      "role": "admin"
+    },
+    {
+      "username": "Suhail Saifi",
+      "email": "Suhail@gmail.com",
+      "role": "user",
+      "id": "b171"
     }
   ]
 }
